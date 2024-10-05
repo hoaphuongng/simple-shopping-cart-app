@@ -1,0 +1,78 @@
+<h1>Shopping Cart</h1>
+
+<div>
+    <h2>Shopping Cart table</h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let item of items">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.price}}</td>
+            <td>
+                <div>
+                    <button (click)="setUpdatedItem(item)">Edit</button>
+                    <button class="danger-background" (click)="deleteItem(item.id)">Remove</button>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <h2>{{ (updatedItem == null ? 'Add a new' : 'Edit') + ' shopping cart item' }}</h2>
+    
+    <form [formGroup]="shoppingCartForm" (ngSubmit)="updatedItem == null ? addItem() : updateItem()">
+        <table>
+            <tr>
+                <td>
+                    <label for="name">Name:</label>
+                </td>
+                <td>
+                    <input id="name" formControlName="name" />
+                </td>
+                <td>
+                    <div class="invalid-text" *ngIf="shoppingCartForm.get('name')?.invalid && shoppingCartForm.get('name')?.touched">
+                        Name is required.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="quantity">Quantity:</label>
+                </td>
+                <td>
+                    <input id="quantity" type="number" formControlName="quantity" step="1" />
+                </td>
+                <td>
+                    <div class="invalid-text" *ngIf="shoppingCartForm.get('quantity')?.invalid && shoppingCartForm.get('quantity')?.touched">
+                        Quantity must be at least 1.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="price">Price:</label>
+                </td>
+                <td>
+                    <input id="price" type="number" formControlName="price" step="0.05" />
+                </td>
+                <td>
+                    <div class="invalid-text" *ngIf="shoppingCartForm.get('price')?.invalid && shoppingCartForm.get('price')?.touched">
+                        Price must be greater than 0.
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" [disabled]="shoppingCartForm.invalid">{{ (updatedItem == null ? 'Add' : 'Update') + ' Item'}}</button>
+        <button type="reset" (click)="resetForm()">Reset</button>
+
+    </form>
+</div>

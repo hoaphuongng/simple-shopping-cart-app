@@ -1,0 +1,11 @@
+@ShoppingCartApplicationBackend_HostAddress = http://localhost:5000
+
+GET {{ShoppingCartApplicationBackend_HostAddress}}/shoppingcart/
+Accept: application/json
+
+###
+
+GET {{ShoppingCartApplicationBackend_HostAddress}}/shoppingcart/1
+Accept: application/json
+
+###

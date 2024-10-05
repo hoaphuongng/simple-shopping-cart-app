@@ -1,0 +1,8 @@
+.invalid-text {
+    color: red;
+}
+
+.danger-background {
+    background-color: red;
+    color: white;
+}
